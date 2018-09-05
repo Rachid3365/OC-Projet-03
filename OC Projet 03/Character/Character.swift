@@ -24,20 +24,14 @@ class Character {
         self.actualHealthPoints = actualHealthPoints
         
         
+    }
     
-    /*    switch self.classe {
-        case .Warrior:
-            self.weapon = Sword()
-            self.maxHealthPoints = 100
-        case .Dwarf:
-            self.weapon = Axe()
-            self.maxHealthPoints = 90
-        case .Magus:
-            self.weapon = MagicWand()
-            self.maxHealthPoints = 100
-        case .Colossus:
-            self.weapon = BigShield()
-            self.maxHealthPoints = 140
-        }*/
+    func descriptionCharacter() {
+        print("")
+        print("Name of Character: \(name)"
+            + "Classe: \(classeOfCharacter)"
+            + "Health: \(actualHealthPoints)/\(maxHealthPoints)"
+            + "Damage: \(weapon.damage)"
+            + "")
     }
 }

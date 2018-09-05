@@ -10,6 +10,19 @@ import Foundation
 
 class Player {
     
-var characterArray = [Character]()
+    var characterArray = [Character]()
+    let name: String
     
+    init(name: String) {
+        self.name = name
+    }
+    func playerTeamDescription() {
+        print("")
+        print("name of Player: \(name)")
+        
+        for character in characterArray {
+            character.descriptionCharacter()
+        }
+    }
 }
+

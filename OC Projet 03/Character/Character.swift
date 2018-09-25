@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Class to init the parameters which a character will need on the game
 class Character {
     var name: String
     var classeOfCharacter: String
@@ -22,16 +23,23 @@ class Character {
         self.weapon = weapon
         self.maxHealthPoints = maxHealthPoints
         self.actualHealthPoints = actualHealthPoints
-        
-        
     }
     
+    // Method to remind and present a character description
     func descriptionCharacter() {
         print("")
         print("Name of Character: \(name)"
-            + "Classe: \(classeOfCharacter)"
-            + "Health: \(actualHealthPoints)/\(maxHealthPoints)"
-            + "Damage: \(weapon.damage)"
+            +  " Classe: \(classeOfCharacter)"
+            +  " Health: \(actualHealthPoints)/\(maxHealthPoints)"
+            +  " Damage: \(weapon.damage)"
             + "")
+    }
+    
+    // Method in order to attack in order to reduce the target HP in order to win
+    func attack(opponent: Character) {
+        opponent.actualHealthPoints -= weapon.damage
+        if opponent.actualHealthPoints < 0 {
+            opponent.actualHealthPoints = 0
+        }
     }
 }

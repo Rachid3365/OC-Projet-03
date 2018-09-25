@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player {
+class Player {  // Create a class for player's parameters 
     
     var characterArray = [Character]()
     let name: String
@@ -16,6 +16,8 @@ class Player {
     init(name: String) {
         self.name = name
     }
+    
+    // Method to create a description and to show it to the players with a print and to invit the player 1 to play
     func playerTeamDescription() {
         print("")
         print("name of Player: \(name)")

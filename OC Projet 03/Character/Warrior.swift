@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Create a class Warrior. Sets an inheritance from the class Character.
 class Warrior: Character {
     
     init(name: String, team: Player) {

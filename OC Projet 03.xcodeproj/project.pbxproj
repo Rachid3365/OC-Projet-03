@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C028AF42167A79600CBBDF7 /* Excalibur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C028AF32167A79600CBBDF7 /* Excalibur.swift */; };
+		9C028AF62167A8D600CBBDF7 /* ElderWand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C028AF52167A8D600CBBDF7 /* ElderWand.swift */; };
 		9C3392BB212DA376007D24A4 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3392BA212DA376007D24A4 /* Weapon.swift */; };
 		9C3392BD212DA3F2007D24A4 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3392BC212DA3F2007D24A4 /* Character.swift */; };
 		9C3392BF212DA52E007D24A4 /* Sword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3392BE212DA52E007D24A4 /* Sword.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9C028AF32167A79600CBBDF7 /* Excalibur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Excalibur.swift; sourceTree = "<group>"; };
+		9C028AF52167A8D600CBBDF7 /* ElderWand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElderWand.swift; sourceTree = "<group>"; };
 		9C3392BA212DA376007D24A4 /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		9C3392BC212DA3F2007D24A4 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		9C3392BE212DA52E007D24A4 /* Sword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sword.swift; sourceTree = "<group>"; };
@@ -82,6 +86,8 @@
 				9C3392C0212DA53D007D24A4 /* Axe.swift */,
 				9C3392CA212DA7CA007D24A4 /* MagicWand.swift */,
 				9C3392CC212E00B7007D24A4 /* BigShield.swift */,
+				9C028AF32167A79600CBBDF7 /* Excalibur.swift */,
+				9C028AF52167A8D600CBBDF7 /* ElderWand.swift */,
 			);
 			path = Weapon;
 			sourceTree = "<group>";
@@ -191,8 +197,10 @@
 				9C3392C3212DA55B007D24A4 /* Warrior.swift in Sources */,
 				9C3392BD212DA3F2007D24A4 /* Character.swift in Sources */,
 				9C3392BF212DA52E007D24A4 /* Sword.swift in Sources */,
+				9C028AF62167A8D600CBBDF7 /* ElderWand.swift in Sources */,
 				9C3392C7212DA573007D24A4 /* Magus.swift in Sources */,
 				9C8AC06C213459A900096DF8 /* Player.swift in Sources */,
+				9C028AF42167A79600CBBDF7 /* Excalibur.swift in Sources */,
 				9C3392C9212DA581007D24A4 /* Colossus.swift in Sources */,
 				9C3392CD212E00B7007D24A4 /* BigShield.swift in Sources */,
 				9C3392C1212DA53D007D24A4 /* Axe.swift in Sources */,

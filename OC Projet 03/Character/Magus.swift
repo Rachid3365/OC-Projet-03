@@ -12,7 +12,7 @@ import Foundation
 class Magus: Character {
     
     init(name: String, team: Player) {
-        super.init(name: name, classeOfCharacter: "Magus", weapon: MagicWand(), actualHealthPoints: 100, maxHealthPoints: 100)
+        super.init(name: name, classeOfCharacter: "Magus", weapon: MagicWand(), actualHealthPoints: 90, maxHealthPoints: 90)
     }
     
     // Method to allow Magus to heal his allies

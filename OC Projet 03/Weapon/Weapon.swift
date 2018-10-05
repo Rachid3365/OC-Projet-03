@@ -8,9 +8,12 @@
 
 import Foundation
 
-class Weapon { // Create a class to init the 2 different parameters we will need for weapons
+// Create a class to init the 2 different parameters we will need for weapons
+class Weapon {
+    
     var damage: Int
-    var healing: Int    // for the Magus only
+    // for the Magus only : Healing capacity
+    var healing: Int
     
     init(damage: Int, healing: Int) {
         self.damage = damage

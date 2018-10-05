@@ -8,5 +8,6 @@
 
 import Foundation
 
+// Begining of the Game: instaciation of new game + call of start
 var newGame = GameRPG()
 newGame.start()

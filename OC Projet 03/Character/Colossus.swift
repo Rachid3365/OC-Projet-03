@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Create a class Colossus. Sets an inheritance from the class Character.
 class Colossus: Character {
     
     init(name: String, team: Player) {

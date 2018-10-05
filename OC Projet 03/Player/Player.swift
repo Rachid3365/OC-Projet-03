@@ -20,7 +20,7 @@ class Player {  // Create a class for player's parameters
     // Method to create a description and to show it to the players with a print and to invit the player 1 to play
     func playerTeamDescription() {
         print("")
-        print("name of Player: \(name)")
+        print("                         Name of the Player: 🛡  \(name)  🛡")
         
         for character in characterArray {
             character.descriptionCharacter()

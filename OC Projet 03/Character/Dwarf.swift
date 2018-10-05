@@ -8,11 +8,11 @@
 
 import Foundation
 
-
+// Set the Dwarf class : inherits from the class Character 
 class Dwarf: Character {
     
     init(name: String, team: Player) {
-        super.init(name: name, classeOfCharacter: "Warrior", weapon: Axe(), actualHealthPoints: 80, maxHealthPoints: 80)
+        super.init(name: name, classeOfCharacter: "Dwarf", weapon: Axe(), actualHealthPoints: 80, maxHealthPoints: 80)
     }
     
 }

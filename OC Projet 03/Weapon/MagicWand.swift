@@ -8,6 +8,8 @@
 
 import Foundation
 
+//
+
 class MagicWand: Weapon {
     
     init() {

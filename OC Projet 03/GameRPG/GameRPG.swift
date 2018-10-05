@@ -18,18 +18,22 @@ class GameRPG {
     var nameTeamPlayer = ""
     
     ///////////////////////////
-    //   MARK: Functions    //
+    //     MARK: METHODS    //
     //////////////////////////
     
     // To Welcome and create their teams of characters
     func start() {
+        print("")
         print("""
-            ================================================
-            |                                              |
-            |      WELCOME to the RPG Fighter Battle !     |
-            |                                              |
-            ================================================
+            ===========================================================
+            |                                                         |
+            |     🛡⚔️  WELCOME to the RPG Fighter Battle !  ⚔️🛡    |
+            |                                                         |
+            ===========================================================
         """)
+        print("")
+        print("")
+        print("⬇️ We shall begin ! Please pay attention to the following instructions ⬇️")
         
         // Only 2 teams on the game with a choice of 3 characters each
         for i in 0..<2 {
@@ -37,7 +41,7 @@ class GameRPG {
             createCharactersPlayer(index: i)
         }
         print("")
-        print("Your two teams are complete and ready! Prepare for the Battle!")
+        print("⚔️ Your two teams are complete and ready! Prepare for the Battle! ⚔️")
         // Start the battle
         fight()
     }
@@ -48,13 +52,13 @@ class GameRPG {
             if error == true {
                 print("")
                 print("--------------------------------------------------------------------------")
-                print("The name you choose is already taken. It must be unique. Try another one.")
+                print(" 🚫 The name you choose is already taken. It must be unique. Try another one. 🚫")
                 print("--------------------------------------------------------------------------")
             } else {
                 print("")
-                print("---------------------------------------")
+                print("=========================================")
                 print("Type the name of Player N° \(index + 1):")
-                print("---------------------------------------")
+                print("=========================================")
             }
             nameTeamPlayer = inputString()
             error = false
@@ -82,16 +86,17 @@ class GameRPG {
                 // if error from the user
                 if error == true{
                     print("")
-                    print("Please use the allowed keys as asked : 1 to 4")
+                    print("I didn't get it... Don't forget to use the allowed keys as asked : 1 to 4")
                     // normal
                 } else {
                     print("")
-                    print("================================================================")
+                    print("====================================================================================")
                     print("Please Choose a character n°\(i + 1) among this list:"
-                        + "\n1. Warrior: A good attacker with his sword!"
-                        + "\n2. Magus: His talent? Healing to support his companions!"
-                        + "\n3. Colossus: Huge and resistant with his leagendary Shield"
-                        + "\n4. Dwarf: With his Axe, A lot of damages have to be expected!")
+                        + "\n1. Warrior: A good attacker with his Sword!"
+                        + "\n2. Magus: His talent? Healing to support his companions with his Magic Wand!"
+                        + "\n3. Colossus: Huge and resistant with his leagendary Big Shield"
+                        + "\n4. Dwarf: With his Axe, A lot of damages have to be expected among his ennemies!")
+                    print("====================================================================================")
                 }
                 playerChoice = inputInt()
                 // To make sure the user uses the valid keys : 1, 2, 3, 4 as asked
@@ -113,10 +118,12 @@ class GameRPG {
                 print("")
                 print("==================================================================")
                 print("Please choose and create an unique name for your chosen Character")
+                print("==================================================================")
             } else {
                 print("")
-                print("=========================================================================")
-                print("This name is already taken. Please create another one. It must be unique.")
+                print("=================================================================================")
+                print("🚫 This name is already taken. Please create another one. It must be unique. 🚫")
+                print("=================================================================================")
             }
             nameCharacters = inputString()
             error = false
@@ -131,9 +138,8 @@ class GameRPG {
     }
     // Method to make sure the character name is unique
     func uniqueNameCharacter() {
-        // -> rappeler error = false ? test---------------------------------------------> !!!!!!!!!!!!!!!!!
         for p in playerArray {
-            // For loop to check in the array if the name is already taken
+            // For loop to check in the Array if the name is already taken
             for c in p.characterArray {
                 if c.name == nameCharacters {
                     error = true
@@ -167,121 +173,166 @@ class GameRPG {
         
         // Number of completed turns
         var turn: Int = 0
-        // total of dead character in team 1
+        // total of dead character in team of Player 1
         var totalDeadPlayerTeam1: Int = 0
-        // total of dead character in team 2
+        // total of dead character in team of Player 2
         var totalDeadPlayerTeam2: Int = 0
+        
         repeat {
             // For Loop of 2 for the 2 players
             for i in 0..<2 {
                 print("")
-                print("=============================")
-                print("Your turn to play has come!")
-                print("=============================")
-                // CALL of characterSelected method to select a character to do your turn with
-                characterSelected = characterSelection(player: playerArray[i])
+                print("========================================")
+                print("ℹ️    Your turn to play has come!   ℹ️")
+                print("========================================")
+                // CALL of the method characterSelected to select a character to do your turn with
+                characterSelected = characterSelection(player: playerArray[i], question: "Which one of your character do you want to use in this turn?")
+                
+                // TO DO : Call LOOTCHEST METHOD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                chestLoot(characterSelected: characterSelected)
+                
                 // FIRST, Exception if the character is a MAGUS ---->>> HEAL AN ALLY.
                 if let magus = characterSelected as? Magus {
                     print("")
-                    print("================================================")
-                    print("Which one of your allies do you want to heal ?")
-                    print("================================================")
-                    targetSelected = characterSelection(player: playerArray[i])
-                    print("Please use keys 1 or 2 or 3, to make your choice: ")
+                    print("=========================================================")
+                    print(" OK And Which one of your allies do you want to heal 🧙🏻‍♂️?")
+                    print("")
+                    targetSelected = characterSelection(player: playerArray[i], question: "Please use keys 1 or 2 or 3, to make your choice:")
                     magus.magusHeal(ally: targetSelected)
                     print("")
-                    print("(\(magus.name) has just healed \(targetSelected.name)"
-                        +   "He has now \(targetSelected.actualHealthPoints) HP thanks to you!")
+                    print("As you wish, \(magus.name) has just healed \(targetSelected.name)!"
+                        +   " He has gained \(magus.weapon.healing) HP and has reached a total of  \(targetSelected.actualHealthPoints) HP thanks to you!")
                 }
                     // SECOND, Except the magus, the selected CHARACTER will ATTACK HIS TARGET
                 else {
                     print("")
-                    print("==============================================================")
-                    print("Which one of your opponent's character do you want to attack?")
-                    print("==============================================================")
+                    print("======================================================================")
+                    print("OK And Which one of your opponent's character do you want to attack ?")
                     print("")
+                    
+                    // If index 0, Will pick and target a charatcter from the player 2 team
                     if i == 0 {
-                        targetSelected = characterSelection(player: playerArray[i + 1])
-                        print("")
-                        print("Please use keys 1 or 2 or 3, to make your choice: ")
+                        targetSelected = characterSelection(player: playerArray[i + 1], question: "Please use keys 1 to 3 to pick a character to attack:")
+                        // Call Method Attack
                         characterSelected.attack(opponent: targetSelected)
+                        print("")
+                        print(" ➡️  \(characterSelected.name) has just attacked \(targetSelected.name) ! ")
+                        print("                 🤜 Due to your attack, \(targetSelected.name) has lost \(characterSelected.weapon.damage)HP ! He has now \(targetSelected.actualHealthPoints) HP ! 🤛")
                         
-                        death(characterSelected: characterSelected, targetSelected: targetSelected)
-                        totalDeadPlayerTeam2 += 1
+                        if targetSelected.actualHealthPoints <= 0 {
+                            targetSelected.actualHealthPoints = 0
+                            totalDeadPlayerTeam2 += 1
+                            print("")
+                            print("                                                        ☠️ ☠️ ☠️                                         ")
+                            print("                   ⚠️ ⚠️   ☠️ Due to your severe Attack \(targetSelected.name) is DEAD ☠️ ⚰️!   ⚠️ ⚠️")
+                            print(totalDeadPlayerTeam2)
+                        }
                     } else {
-                        targetSelected = characterSelection(player: playerArray[i - 1])
-                        print("")
-                        print("Please use keys 1 or 2 or 3, to make your choice: ")
+                        // If index 1, will pick and target a character from the player 1 team
+                        targetSelected = characterSelection(player: playerArray[i - 1], question: "Please use keys 1 to 3 to pick a character to attack: ")
                         characterSelected.attack(opponent: targetSelected)
+                        print("")
+                        print(" ➡️  \(characterSelected.name) has just attacked \(targetSelected.name) ! ")
+                        print("                 🤜 Due to your attack, \(targetSelected.name) has lost \(characterSelected.weapon.damage)HP ! He has now \(targetSelected.actualHealthPoints) HP ! 🤛")
                         
-                        death(characterSelected: characterSelected, targetSelected: targetSelected)
-                        totalDeadPlayerTeam1 += 1
+                        if targetSelected.actualHealthPoints <= 0 {
+                            targetSelected.actualHealthPoints = 0
+                            totalDeadPlayerTeam1 += 1
+                            print("")
+                            print("                 ⚠️ ⚠️   ☠️ Due to your severe Attack \(targetSelected.name) is dead ☠️ ⚰️!   ⚠️ ⚠️")
+                            print(totalDeadPlayerTeam1)
+                        }
                     }
                 }
-                // In order to count each completed tour
-                turn += 1
             }
-        } while totalDeadPlayerTeam1 != 3 && totalDeadPlayerTeam2 != 3
+            // In order to count each completed tour
+            turn += 1
+            // While the total of dead characters is not reaching 3 for one of the player's team, the fight goes on
+        } while totalDeadPlayerTeam1 <= 3 && totalDeadPlayerTeam2 <= 3
         
         // To check who's gonna be the champion of this Fight
         var champion = ""
+        var loser = ""
         if totalDeadPlayerTeam1 == 3 {
             champion = playerArray[1].name
-        } else if totalDeadPlayerTeam2 == 3 {
+            loser = playerArray[0].name
+        } else {
             champion = playerArray[0].name
+            loser = playerArray[1].name
         }
         print("")
         print("""
             ============================================================================
             |                                                                          |
-            |                             CONGRATULATIONS !!                           |
-            |                                                                          |
-            |      \(champion), You've just WON this epic fight in \(turn) turns!     |
+            |                           🏆 CONGRATULATIONS 🏆                          |
+            |                               \(champion)!!                             |
+            |                                    🥇                                    |
             ============================================================================
-            
             """)
-    }
-    
-    // Method created in order to acknowledge the attack result and the death if so
-    func death(characterSelected: Character, targetSelected: Character) {
+        print(" \(champion), You've just WON this epic fight in \(turn) turns!")
         print("")
-        print("\(characterSelected.name) has just attacked \(targetSelected.name) !")
-        
-        if targetSelected.actualHealthPoints <= 0 {
-            targetSelected.actualHealthPoints = 0
-            print("")
-            print("Due to your severe Attack \(targetSelected.name) is dead !")
-        } else {
-            print("")
-            print("Due to your attack, \(targetSelected.name) has only \(targetSelected.actualHealthPoints) HP remained !")
-        }
+        print("\(loser), unfortunately, you LOSE this fight ")
     }
     
-    // DECLARATION of a method in order to pick a character
-    func characterSelection(player: Player) -> Character {
+    
+    // DECLARATION of a METHOD in order to pick a character
+    func characterSelection(player: Player, question: String) -> Character {
+        // In order to present a Player's Team description before picking a character to use or to attack/heal
         player.playerTeamDescription()
         print("")
         print("=============================================================")
-        print("Which one of your character do you want to use in this tour? ")
+        print(question)
         print("=============================================================")
-        print("")
+        
         repeat {
             playerChoice = inputInt()
             // To make sure the user uses the valid keys : 1, 2, 3 as asked
             if playerChoice != 1 && playerChoice != 2 && playerChoice != 3 {
                 error = true
                 print("")
-                print("Please use the allowed keys as asked : 1 to 3")
+                print("🚫 Please use the allowed keys as asked : 1 to 3 🚫")
             } else if player.characterArray[playerChoice - 1].actualHealthPoints <= 0 {
                 error = true
                 print("")
-                print("You cannot choose a character already dead.")
+                print("🚫 You cannot choose a character already dead. 👻 🚫 \n. Please retry below.")
             } else {
                 error = false
             }
+            // Until there is no error from the user, will repeat
         } while error == true
+        // this will link the input 1, 2, 3, with the Array index which is 0, 1, 2 and return it
         return player.characterArray[playerChoice - 1]
     }
+    
+    func chestLoot(characterSelected: Character) {
+        let excalibur = Excalibur()
+        let elderwand = ElderWand()
+        let luckyScore = Int.random(in: 0...100)
+        if luckyScore >= 80 {
+            print("")
+            print("=========================================================================================================================")
+            print("  🃏🎁 Good fortune seems to be on your side, a chest has just appeared before you ! 🎁🃏")
+            if characterSelected is Magus {
+                if characterSelected.weapon is ElderWand {
+                    print(" Oh! The chest re closed before your sad eyes because you seem to already have a legendary weapon ! Fair enough!")
+                } else {
+                    print("")
+                    print(" 🎊  You Got The most powerful Wand ever: The Elder Wand ! \(characterSelected.name) healing ability will reach \(elderwand.healing) 🎊")
+                    print("==================================================================================================================")
+                    characterSelected.weapon = ElderWand() }
+            } else {
+                if characterSelected.weapon is Excalibur {
+                    print("")
+                    print("Oh! The chest re closed before your sad eyes because you seem to already have a legendary weapon ! Fair enough!")
+                } else {
+                    print("")
+                    print(" 🎊  You got The most powerful weapon ever created : The legendary Excalibur ! \(characterSelected.name) damage will reach \(excalibur.damage) 🎊")
+                    print("==================================================================================================================")
+                    characterSelected.weapon = Excalibur()
+                }
+                
+            }
+        }
+    }
 }
-
 

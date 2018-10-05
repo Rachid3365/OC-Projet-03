@@ -28,16 +28,18 @@ class Character {
     // Method to remind and present a character description
     func descriptionCharacter() {
         print("")
-        print("Name of Character: \(name)"
-            +  " Classe: \(classeOfCharacter)"
-            +  " Health: \(actualHealthPoints)/\(maxHealthPoints)"
-            +  " Damage: \(weapon.damage)"
+        print("Name of the Character: ⭐︎  \(name)  ⭐︎"
+            +  "  ▹ Classe: \(classeOfCharacter)   "
+            +  "  ▹ Health: \(actualHealthPoints)/\(maxHealthPoints)    "
+            +  "  ▹ Damage: \(weapon.damage)    "
+            +  "  ▹ Healing: \(weapon.healing)"
             + "")
     }
     
     // Method in order to attack in order to reduce the target HP in order to win
     func attack(opponent: Character) {
         opponent.actualHealthPoints -= weapon.damage
+        // After an attack, HP cannot go down 0. 0 means dead already.
         if opponent.actualHealthPoints < 0 {
             opponent.actualHealthPoints = 0
         }

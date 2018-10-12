@@ -8,8 +8,9 @@
 
 import Foundation
 
+// Create a Excalibur class for this special weapon which can be given in the chest. Inherits from Weapon class
 class Excalibur : Weapon {
-    
+    // to init the specifics damage healing parameters
     init() {
         super.init(damage: 50, healing: 0)
     }

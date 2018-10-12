@@ -8,11 +8,10 @@
 
 import Foundation
 
+// Create a Sword class to init the specifics damage healing parameters. Inherits from Weapon class
 class Sword: Weapon {
     
     init() {
         super.init(damage: 30, healing: 0)
-        
     }
-    
 }

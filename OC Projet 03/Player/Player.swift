@@ -8,20 +8,22 @@
 
 import Foundation
 
-class Player {  // Create a class for player's parameters 
-    
+// Create a class for Player's parameters
+class Player {
+    // Create an Array for Characters
     var characterArray = [Character]()
     let name: String
-    
+    // To init the name parameter
     init(name: String) {
         self.name = name
     }
     
-    // Method to create a description and to show it to the players with a print and to invit the player 1 to play
+    // Method to create a description and to show it to the players with a print and to invite the player to play
     func playerTeamDescription() {
         print("")
         print("                         Name of the Player: 🛡  \(name)  🛡")
         
+        // For Loop to call descriptionCharacter function for each index of characterArray
         for character in characterArray {
             character.descriptionCharacter()
         }

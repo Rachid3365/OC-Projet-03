@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Create an Axe class to init the specifics damage healing parameters. Inherits from Weapon class
 class Axe: Weapon {
     
     init() {

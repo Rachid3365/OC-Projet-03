@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Create a BigShield class to init the specifics damage healing parameters. Inherits from Weapon class
 class BigShield: Weapon {
     
     init() {

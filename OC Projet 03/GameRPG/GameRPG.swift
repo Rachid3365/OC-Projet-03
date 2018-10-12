@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Set the game class
+// Create the GameRPG class
 class GameRPG {
     
     var playerArray = [Player]()
@@ -16,10 +16,6 @@ class GameRPG {
     var nameCharacters = ""
     var playerChoice = 0
     var nameTeamPlayer = ""
-    
-    ///////////////////////////
-    //     MARK: METHODS    //
-    //////////////////////////
     
     // To Welcome and create their teams of characters
     func start() {
@@ -51,9 +47,9 @@ class GameRPG {
         repeat {
             if error == true {
                 print("")
-                print("--------------------------------------------------------------------------")
+                print("---------------------------------------------------------------------------------")
                 print(" 🚫 The name you choose is already taken. It must be unique. Try another one. 🚫")
-                print("--------------------------------------------------------------------------")
+                print("---------------------------------------------------------------------------------")
             } else {
                 print("")
                 print("=========================================")
@@ -72,9 +68,9 @@ class GameRPG {
         } while error == true
         playerArray.append(Player(name: nameTeamPlayer))
     }
-    // In order to allow only Integer as input needed as an answer from the user
+    // In order to allow only Integer as inputs needed as an answer from the user
     func inputInt() -> Int {
-        guard let data = readLine() else { return 0}
+        guard let data = readLine() else { return 0 }
         guard let dataToInt = Int(data) else { return 0 }
         return dataToInt
     }
@@ -170,25 +166,39 @@ class GameRPG {
     func fight() {
         var characterSelected: Character
         var targetSelected: Character
-        
         // Number of completed turns
         var turn: Int = 0
         // total of dead character in team of Player 1
         var totalDeadPlayerTeam1: Int = 0
         // total of dead character in team of Player 2
         var totalDeadPlayerTeam2: Int = 0
+        // To Resume total Damage and Healing done by Player 1
+        var totalDamage1 = 0
+        var totalHealing1 = 0
+        // To Resume total Damage and Healing done by Player 2
+        var totalDamage2 = 0
+        var totalHealing2 = 0
+        
+        // To check who's gonna be the champion of this Fight
+        var champion = ""
+        var loser = ""
+        // To resume damage total and healing total from winner and loser
+        var damageDoneWinner = ""
+        var healingDoneWinner = ""
+        var damageDoneLoser = ""
+        var healingDoneLoser = ""
         
         repeat {
             // For Loop of 2 for the 2 players
             for i in 0..<2 {
                 print("")
+                print("********************************************")
                 print("========================================")
                 print("ℹ️    Your turn to play has come!   ℹ️")
                 print("========================================")
                 // CALL of the method characterSelected to select a character to do your turn with
                 characterSelected = characterSelection(player: playerArray[i], question: "Which one of your character do you want to use in this turn?")
-                
-                // TO DO : Call LOOTCHEST METHOD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                 chestLoot(characterSelected: characterSelected)
                 
                 // FIRST, Exception if the character is a MAGUS ---->>> HEAL AN ALLY.
@@ -201,9 +211,15 @@ class GameRPG {
                     magus.magusHeal(ally: targetSelected)
                     print("")
                     print("As you wish, \(magus.name) has just healed \(targetSelected.name)!"
-                        +   " He has gained \(magus.weapon.healing) HP and has reached a total of  \(targetSelected.actualHealthPoints) HP thanks to you!")
+                        +   " He has gained \(magus.weapon.healing) HP ! \n 🚑 He has reached a total of  \(targetSelected.actualHealthPoints) HP thanks to you! 🚑")
+                    
+                    if i == 0 {
+                        totalHealing1 += magus.weapon.healing
+                    } else {
+                        totalHealing2 += magus.weapon.healing
+                    }
                 }
-                    // SECOND, Except the magus, the selected CHARACTER will ATTACK HIS TARGET
+                // SECOND, Except the magus, the selected CHARACTER will ATTACK HIS TARGET
                 else {
                     print("")
                     print("======================================================================")
@@ -218,14 +234,15 @@ class GameRPG {
                         print("")
                         print(" ➡️  \(characterSelected.name) has just attacked \(targetSelected.name) ! ")
                         print("                 🤜 Due to your attack, \(targetSelected.name) has lost \(characterSelected.weapon.damage)HP ! He has now \(targetSelected.actualHealthPoints) HP ! 🤛")
+                        totalDamage1 += characterSelected.weapon.damage
                         
                         if targetSelected.actualHealthPoints <= 0 {
                             targetSelected.actualHealthPoints = 0
                             totalDeadPlayerTeam2 += 1
                             print("")
-                            print("                                                        ☠️ ☠️ ☠️                                         ")
+                            print("                                                  ☠️ ☠️ ☠️                                         ")
                             print("                   ⚠️ ⚠️   ☠️ Due to your severe Attack \(targetSelected.name) is DEAD ☠️ ⚰️!   ⚠️ ⚠️")
-                            print(totalDeadPlayerTeam2)
+                            print(" ℹ️ There is now \(totalDeadPlayerTeam2) dead character in \(playerArray[1].name) team ! ℹ️")
                         }
                     } else {
                         // If index 1, will pick and target a character from the player 1 team
@@ -234,32 +251,41 @@ class GameRPG {
                         print("")
                         print(" ➡️  \(characterSelected.name) has just attacked \(targetSelected.name) ! ")
                         print("                 🤜 Due to your attack, \(targetSelected.name) has lost \(characterSelected.weapon.damage)HP ! He has now \(targetSelected.actualHealthPoints) HP ! 🤛")
+                        totalDamage2 += characterSelected.weapon.damage
                         
                         if targetSelected.actualHealthPoints <= 0 {
                             targetSelected.actualHealthPoints = 0
                             totalDeadPlayerTeam1 += 1
                             print("")
+                            print("                                                  ☠️ ☠️ ☠️                                         ")
                             print("                 ⚠️ ⚠️   ☠️ Due to your severe Attack \(targetSelected.name) is dead ☠️ ⚰️!   ⚠️ ⚠️")
-                            print(totalDeadPlayerTeam1)
+                            print(" ℹ️ There is now \(totalDeadPlayerTeam1) dead character in \(playerArray[0].name) team ! ℹ️")
                         }
                     }
                 }
             }
             // In order to count each completed tour
             turn += 1
-            // While the total of dead characters is not reaching 3 for one of the player's team, the fight goes on
-        } while totalDeadPlayerTeam1 <= 3 && totalDeadPlayerTeam2 <= 3
+        // While the total of dead characters is not reaching 3 for one of the player's team, the fight goes on.
+        } while totalDeadPlayerTeam1 < 3 && totalDeadPlayerTeam2 < 3
         
-        // To check who's gonna be the champion of this Fight
-        var champion = ""
-        var loser = ""
+        // Conditional Statement to check the champion and the loser, and to resume damages/healing done by each of them.
         if totalDeadPlayerTeam1 == 3 {
             champion = playerArray[1].name
             loser = playerArray[0].name
+            damageDoneWinner = " Damage done : \(totalDamage2) HP"
+            healingDoneWinner = " Healing done : \(totalHealing2) HP"
+            damageDoneLoser = " Damage done : \(totalDamage1) HP "
+            healingDoneLoser = " Healing done : \(totalHealing1) HP"
         } else {
             champion = playerArray[0].name
             loser = playerArray[1].name
+            damageDoneWinner = " Damage done : \(totalDamage1) HP"
+            healingDoneWinner = " Healing done : \(totalHealing1) HP"
+            damageDoneLoser = " Damage done : \(totalDamage2) HP"
+            healingDoneLoser = " Healing done : \(totalHealing2) HP"
         }
+        // FINAL print announcement
         print("")
         print("""
             ============================================================================
@@ -270,8 +296,12 @@ class GameRPG {
             ============================================================================
             """)
         print(" \(champion), You've just WON this epic fight in \(turn) turns!")
+        print(damageDoneWinner)
+        print(healingDoneWinner)
         print("")
-        print("\(loser), unfortunately, you LOSE this fight ")
+        print(" \(loser), unfortunately, you LOSE this fight...")
+        print(damageDoneLoser)
+        print(healingDoneLoser)
     }
     
     
@@ -294,40 +324,51 @@ class GameRPG {
             } else if player.characterArray[playerChoice - 1].actualHealthPoints <= 0 {
                 error = true
                 print("")
-                print("🚫 You cannot choose a character already dead. 👻 🚫 \n. Please retry below.")
+                print("🚫 You cannot choose a character already dead. Pick another one.👻 🚫")
             } else {
                 error = false
             }
-            // Until there is no error from the user, will repeat
+        // Until there is no error from the user, will repeat
         } while error == true
         // this will link the input 1, 2, 3, with the Array index which is 0, 1, 2 and return it
         return player.characterArray[playerChoice - 1]
     }
-    
+    // DECLARATION of a method in order to loot a chest randomly
     func chestLoot(characterSelected: Character) {
+        // variable of new weapon for characters who attack
         let excalibur = Excalibur()
+        // variable of new weapon for Magus who is the only one to heal
         let elderwand = ElderWand()
+        // Declaration of luckyScore which is the "random factor" for the chest to appear
         let luckyScore = Int.random(in: 0...100)
         if luckyScore >= 80 {
             print("")
-            print("=========================================================================================================================")
-            print("  🃏🎁 Good fortune seems to be on your side, a chest has just appeared before you ! 🎁🃏")
+            print("====================================================================================================================")
+            print("  🃏 🎁 Good fortune seems to be on your side, a chest has just appeared before you ! 🎁 🃏")
+            // IF the character in front of the CHEST is the MAGUS
             if characterSelected is Magus {
+                // IF MAGUS already has the ElderWand announcement he cannot have it a second time
                 if characterSelected.weapon is ElderWand {
-                    print(" Oh! The chest re closed before your sad eyes because you seem to already have a legendary weapon ! Fair enough!")
+                    print(" Oh! The chest re closed before your sad eyes because you seem to already have a legendary weapon ! Fair enough !")
+                // IF not, announcement the Magus can have it
                 } else {
                     print("")
-                    print(" 🎊  You Got The most powerful Wand ever: The Elder Wand ! \(characterSelected.name) healing ability will reach \(elderwand.healing) 🎊")
+                    print(" 🎊  You Got The most powerful Wand ever: The Elder Wand ! \(characterSelected.name) healing ability will reach \(elderwand.healing)HP ! 🎊")
                     print("==================================================================================================================")
+                    // To change the MAGUS weapon -> now, his weapon is the ElderWand
                     characterSelected.weapon = ElderWand() }
+            // IF the characted selected is ANYONE but the magus
             } else {
+                // IF he already has Excalibur, announcement that he cannot have it a second time
                 if characterSelected.weapon is Excalibur {
                     print("")
                     print("Oh! The chest re closed before your sad eyes because you seem to already have a legendary weapon ! Fair enough!")
+                // IF not, annoucement that he can have Excalibur
                 } else {
                     print("")
-                    print(" 🎊  You got The most powerful weapon ever created : The legendary Excalibur ! \(characterSelected.name) damage will reach \(excalibur.damage) 🎊")
-                    print("==================================================================================================================")
+                    print(" 🎊  You got The most powerful weapon ever created : The legendary Excalibur ! An attack by \(characterSelected.name) will damage \(excalibur.damage)HP !🎊")
+                    print("===================================================================================================================")
+                    // To change the Attacker weapon -> now, his weapon become Excalibur
                     characterSelected.weapon = Excalibur()
                 }
                 

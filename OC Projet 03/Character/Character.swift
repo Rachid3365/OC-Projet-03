@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Class to init the parameters which a character will need on the game
+// Create a Character Class to init the parameters which a character will need on the game
 class Character {
     var name: String
     var classeOfCharacter: String

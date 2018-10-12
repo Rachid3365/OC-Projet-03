@@ -8,12 +8,10 @@
 
 import Foundation
 
-//
-
+// Create a MagicWand class to init the specifics damage healing parameters. Inherits from Weapon class
 class MagicWand: Weapon {
     
     init() {
         super.init(damage: 0, healing: 15)
-        
     }
 }
